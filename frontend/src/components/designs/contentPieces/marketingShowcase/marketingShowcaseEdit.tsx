@@ -61,6 +61,7 @@ const MarketingShowcaseEdit: React.FC<EditorialComponentProps> = ({ id }) => {
 
   const sectionRef = useRef(null);
   const updateComponentProps = useWebsiteStore((state) => state.updateComponentProps);
+  const currentPageSlug = useWebsiteStore((state) => state.currentPageSlug);
 
   // Merge with defaults to ensure all required props exist
   const propsWithDefaults = { ...defaultMarketingShowcaseProps, ...componentProps };
@@ -100,7 +101,7 @@ const MarketingShowcaseEdit: React.FC<EditorialComponentProps> = ({ id }) => {
     value: MarketingShowcaseProps[K]
   ) => {
     setComponentProps(prev => ({ ...prev, [key]: value }));
-    updateComponentProps(id, { [key]: value });
+    updateComponentProps(currentPageSlug, id, { [key]: value });
   };
 
   useSyncLlmOutput(

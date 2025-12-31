@@ -51,13 +51,14 @@ const TestimonialsRealEstateEdit: React.FC<EditorialComponentProps> = ({ id }) =
   const sectionRef = useRef(null);
 
   const updateComponentProps = useWebsiteStore((state) => state.updateComponentProps);
+  const currentPageSlug = useWebsiteStore((state) => state.currentPageSlug);
 
   const updateProp = <K extends keyof TestimonialsRealEstateProps>(
     key: K,
     value: TestimonialsRealEstateProps[K]
   ) => {
     setComponentProps((prev) => ({ ...prev, [key]: value }));
-    updateComponentProps(id, { [key]: value });
+    updateComponentProps(currentPageSlug, id, { [key]: value });
   };
 
   const updateTestimonial = (

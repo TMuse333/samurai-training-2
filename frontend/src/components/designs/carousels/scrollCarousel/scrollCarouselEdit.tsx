@@ -53,6 +53,7 @@ const ScrollCarouselEdit: React.FC<EditorialComponentProps> = ({ id }) => {
   } = useComponentEditor();
 
   const updateComponentProps = useWebsiteStore((state) => state.updateComponentProps);
+  const currentPageSlug = useWebsiteStore((state) => state.currentPageSlug);
 
   // Merge with defaults to ensure all required props exist
   const propsWithDefaults = { ...defaultScrollCarouselProps, ...componentProps };
@@ -114,8 +115,8 @@ const ScrollCarouselEdit: React.FC<EditorialComponentProps> = ({ id }) => {
   };
 
   useEffect(() => {
-    updateComponentProps(id, { items: safeItems });
-  }, [safeItems, id, updateComponentProps]);
+    updateComponentProps(currentPageSlug, id, { items: safeItems });
+  }, [safeItems, id, currentPageSlug, updateComponentProps]);
 
   useEffect(() => {
     if (currentComponent?.name === "ScrollCarousel") {
@@ -128,7 +129,7 @@ const ScrollCarouselEdit: React.FC<EditorialComponentProps> = ({ id }) => {
 
   const updateProp = <K extends keyof ScrollCarouselProps>(key: K, value: ScrollCarouselProps[K]) => {
     setComponentProps((prev) => ({ ...prev, [key]: value }));
-    updateComponentProps(id, { [key]: value });
+    updateComponentProps(currentPageSlug, id, { [key]: value });
   };
 
   const scroll = (direction: "left" | "right") => {
